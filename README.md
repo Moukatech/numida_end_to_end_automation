@@ -29,7 +29,7 @@ The framework is designed to be **scalable, readable, and production-ready**, fo
 
 - Architecture: Refer to the [architecture](./Automation_architecture.md)  diagram included in the documentation for a visual overview.
 - Test Plan :  Refer to the [Test Plan](./Test_plan.md) document to understand the testing approach.
-- Bugs : Refer to the [Identified Bugs](./Bugs_and_Gaps.md) document view indetified issues. 
+- Bugs : Refer to the [Identified Bugs](./Bugs_and_Gaps.md) document view identified issues. 
 
 
 
