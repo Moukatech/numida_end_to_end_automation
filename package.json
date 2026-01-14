@@ -1,0 +1,21 @@
+{
+  "name": "ui-tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@faker-js/faker": "10.2.0",
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^25.0.7",
+    "allure-commandline": "2.36.0",
+    "allure-playwright": "3.4.4"
+  },
+  "dependencies": {
+    "faker-js": "^1.0.0"
+  }
+}
