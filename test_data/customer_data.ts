@@ -17,9 +17,12 @@ const getFaker = async () => {
 export async function generateCustomerData() {
   const faker = await getFaker();
   return {
-    fullname:faker.person.fullName(),
-    national_ID:"ID" + random_Phone_Number,
-    DOB:formattedDOB
+    full_name:faker.person.fullName(),
+    national_id:"ID" + random_Phone_Number,
+    date_of_birth:formattedDOB,
+    loan_amount: 50000,
+    loan_term: 15,
+    purpose: 'Business expansion'
   };
 }
 

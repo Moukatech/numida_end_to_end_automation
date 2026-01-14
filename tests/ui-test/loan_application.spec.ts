@@ -14,14 +14,14 @@ test.beforeEach(async ({page}) => {
 
 test('verify user can fill personal details for  loan application', async({page})=>{
     const loans_page= new Loan(page)
-    await loans_page.get_personal_details(data.fullname,data.national_ID,"",data.DOB)
+    await loans_page.get_personal_details(data.full_name,data.national_id,"",data.date_of_birth)
     
 
 })
 
 test('verify user can fill loan details successfully', async({page})=>{
     const loans_page= new Loan(page)
-    await loans_page.get_personal_details(data.fullname,data.national_ID,"",data.DOB)
+    await loans_page.get_personal_details(data.full_name,data.national_id,"",data.date_of_birth)
     await loans_page.get_loan_details("10000","testin", '15')
     
 
@@ -29,7 +29,7 @@ test('verify user can fill loan details successfully', async({page})=>{
 
 test('verify correct error when loan amount is less than 1000', async({page})=>{
     const loans_page= new Loan(page)
-    await loans_page.get_personal_details(data.fullname,data.national_ID,"",data.DOB)
+    await loans_page.get_personal_details(data.full_name,data.national_id,"",data.date_of_birth)
     await loans_page.get_loan_details("100","testing", '15')
     await expect (page.locator('.field-error')).toContainText("Loan amount must be at least 1000")
 
@@ -37,7 +37,7 @@ test('verify correct error when loan amount is less than 1000', async({page})=>{
 
 test('verify correct error when loan amount is more than 5000000', async({page})=>{
     const loans_page= new Loan(page)
-    await loans_page.get_personal_details(data.fullname,data.national_ID,"",data.DOB)
+    await loans_page.get_personal_details(data.full_name,data.national_id,"",data.date_of_birth)
     await loans_page.get_loan_details("10000000","testing", '15')
     await expect (page.locator('.field-error')).toContainText("Loan amount cannot exceed 5000000")
     
@@ -46,7 +46,7 @@ test('verify correct error when loan amount is more than 5000000', async({page})
 
 test('verify correct loan status(PENDING) is displayed when loan amount is more than 1,000,000', async({page})=>{
     const loans_page= new Loan(page)
-    await loans_page.get_personal_details(data.fullname,data.national_ID,"",data.DOB)
+    await loans_page.get_personal_details(data.full_name,data.national_id,"",data.date_of_birth)
     await loans_page.get_loan_details("1000000","testing", '15')
     await expect (page.locator('.status-badge')).toContainText("PENDING")
     await new Promise(resolve => setTimeout(resolve, 4000))
@@ -55,7 +55,7 @@ test('verify correct loan status(PENDING) is displayed when loan amount is more 
 
 test('verify correct loan status(PENDING) is displayed when the age is more than 60', async({page})=>{
     const loans_page= new Loan(page)
-    await loans_page.get_personal_details(data.fullname,data.national_ID,"","1960-01-01")
+    await loans_page.get_personal_details(data.full_name,data.national_id,"","1960-01-01")
     await loans_page.get_loan_details("10000","testing", '15')
     await expect (page.locator('.status-badge')).toContainText("PENDING")
     await new Promise(resolve => setTimeout(resolve, 4000))
