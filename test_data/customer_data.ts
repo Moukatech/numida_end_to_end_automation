@@ -15,8 +15,10 @@ const getFaker = async () => {
 
 
 export async function generateCustomerData() {
+  const timestamp = Date.now();
   const faker = await getFaker();
   return {
+    phone_number:`07${timestamp}`.slice(0, 10),
     full_name:faker.person.fullName(),
     national_id:"ID" + random_Phone_Number,
     date_of_birth:formattedDOB,

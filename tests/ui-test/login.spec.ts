@@ -1,6 +1,6 @@
 import {test, expect} from '@playwright/test'
 
-import { Login } from './page_objects/login'
+import { Login } from './page_objects/loginPage'
 import { generateCustomerData,phone_number } from '../../test_data/customer_data'
 
 test('start application successfully', async({page})=>{
@@ -28,7 +28,7 @@ test ('verify correct error is displayed when using an invalid otp', async({page
 test ('verify correct error is displayed when using invalid phone number', async({page})=>{
     const login_page = new Login(page)
     await login_page.start_application()
-    await login_page.enter_phone_number("0728494555")
+    await login_page.enter_phone_number("0728495")
     await expect (page.locator('.error-message')).toContainText("Invalid phone number format")
     
 })

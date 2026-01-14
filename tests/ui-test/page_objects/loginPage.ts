@@ -8,7 +8,7 @@ export class Login{
     readonly opt_field
     readonly verify_otp_Btn
 
-constructor(page:Page){
+constructor( page:Page){
     this.page =page
     this.start_application_Btn = page.getByRole('button', {name: 'Start Application'})
     this.phone_number = page.locator('#phone')

@@ -48,20 +48,19 @@ test.describe.serial("Test loan submission flow", async () => {
 })
 
 
-test.describe('Submit Application schema Validation', () => {
+test.describe('Payload validations', () => {
 
-  test('Full name too short', async ({ request }) => {
+  test('Full name validation', async ({ request }) => {
     const res = await request.post('/api/application/submit', {
       headers: {  Authorization: `Bearer ${token}` },
       data: { full_name: 'J' }
     });
     const body = await res.json();
-    console.log(body)
     expect(body.errors.full_name).toBe('Full name must be at least 2 characters')
     expect(res.status()).toBe(400);
   });
 
-  test('Loan amount below minimum', async ({ request }) => {
+  test('minimum Loan amount validation', async ({ request }) => {
     const res = await request.post('/api/application/submit', {
       headers: {  Authorization: `Bearer ${token}` },
       data: { loan_amount: 999 }
@@ -71,7 +70,7 @@ test.describe('Submit Application schema Validation', () => {
     expect(res.status()).toBe(400);
   });
 
-  test('Loan amount above maximum', async ({ request }) => {
+  test('Maximum Loan amount validation ', async ({ request }) => {
     const res = await request.post('/api/application/submit', {
       headers: {  Authorization: `Bearer ${token}` },
       data: { loan_amount: 5000001 }
@@ -111,4 +110,24 @@ test.describe('Submit Application schema Validation', () => {
     expect(res.status()).toBe(400);
   });
 
+
+   test('verify correct error on duplicate submittion', async ({ request }) => {
+    const response = await request.post('/api/application/submit', {
+        data: payload,
+        headers: {
+        Authorization: `Bearer ${token}`
+        }
+    });
+     const response2 = await request.post('/api/application/submit', {
+        data: payload,
+        headers: {
+        Authorization: `Bearer ${token}`
+        }
+    });
+
+    const body = await response2.json();
+    expect(response.status()).toBe(400);
+    expect(body.error).toBe("Application already exists")
+    
+    });
 });
