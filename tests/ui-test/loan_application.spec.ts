@@ -49,7 +49,7 @@ test('verify correct loan status(PENDING) is displayed when loan amount is more 
     await loans_page.get_personal_details(data.full_name,data.national_id,"",data.date_of_birth)
     await loans_page.get_loan_details("1000000","testing", '15')
     await expect (page.locator('.status-badge')).toContainText("PENDING")
-    await new Promise(resolve => setTimeout(resolve, 4000))
+    // await new Promise(resolve => setTimeout(resolve, 4000))
 
 })
 
@@ -58,7 +58,7 @@ test('verify correct loan status(PENDING) is displayed when the age is more than
     await loans_page.get_personal_details(data.full_name,data.national_id,"","1960-01-01")
     await loans_page.get_loan_details("10000","testing", '15')
     await expect (page.locator('.status-badge')).toContainText("PENDING")
-    await new Promise(resolve => setTimeout(resolve, 4000))
+    // await new Promise(resolve => setTimeout(resolve, 4000))
 
 })
 

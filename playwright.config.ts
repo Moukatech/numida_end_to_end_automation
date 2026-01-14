@@ -13,10 +13,15 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   testDir: './tests',
-  reporter: 'html',
+  reporter: [
+      ['html'],
+      ['json', { outputFile: 'reports/results.json' }],
+      ['allure-playwright', { outputFolder: 'allure-results',detail:true }]
+    ],
+
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
  use: {
-    baseURL:  'http://localhost:5001',
+    baseURL: process.env.BASE_URL || 'http://localhost:5001',
     extraHTTPHeaders: {
       'Content-Type': 'application/json'
     }
@@ -25,19 +30,21 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
+      name: 'ui',
+      testMatch: /ui-test\/.*\.spec\.ts/,
       use: { ...devices['Desktop Chrome'] },
     },
-
     {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
+      name: 'api',
+      testMatch: /api-tests\/.*\.spec\.ts/,
+      use: {
+        baseURL: process.env.BASE_URL || 'http://localhost:5001',
+        extraHTTPHeaders: {
+          'Content-Type': 'application/json'
+        }
+      }
+    }
 
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
 
   ],
 

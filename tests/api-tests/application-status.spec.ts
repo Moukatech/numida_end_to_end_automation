@@ -23,7 +23,26 @@ test('Get application status', async ({ request }) => {
   });
 
   const body = await response.json();
-
+  console.log(body)
   expect(response.status()).toBe(200);
   expect(body.has_application).toBeDefined();
 });
+
+
+test.describe('Application Status negative tests', () => {
+
+  test('Missing Authorization header', async ({ request }) => {
+    const res = await request.get('/api/application/status');
+    expect(res.status()).toBe(401);
+  });
+
+  test('Invalid token', async ({ request }) => {
+    const res = await request.get('/api/application/status', {
+      headers: { Authorization: 'Bearer invalid-token' }
+    });
+    expect(res.status()).toBe(401);
+  });
+
+
+});
+
