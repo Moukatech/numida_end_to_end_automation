@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { generateCustomerData,phone_number,validOtp } from '../../test_data/customer_data'
 
 let token: string;
-const payload = await generateCustomerData()
+let payload = await generateCustomerData()
 
 test.beforeAll(async ({ request }) => {
   await request.post('/api/auth/request-otp', {
@@ -31,19 +31,9 @@ test.describe.serial("Test loan submission flow", async () => {
     const body = await response.json();
     expect(response.status()).toBe(201);
     expect(body.application.full_name).toBe(payload.full_name)
-    expect(['approved', 'rejected', 'pending']).toContain(body.application.status);
+    expect(['approved', 'pending']).toContain(body.application.status);
     });
 
-    test('Submit duplicate application - error', async ({ request }) => {
-    const response = await request.post('/api/application/submit', {
-        data: payload,
-        headers: {
-        Authorization: `Bearer ${token}`
-        }
-    });
-
-    expect(response.status()).toBe(400);
-    });
 
 })
 
@@ -130,4 +120,14 @@ test.describe('Payload validations', () => {
     expect(body.error).toBe("Application already exists")
     
     });
+
+    test('Veify correct error when negative Loan amount is provided ', async ({ request }) => {
+    const res = await request.post('/api/application/submit', {
+      headers: {  Authorization: `Bearer ${token}` },
+      data: { loan_amount: -1 }
+    });
+    const body = await res.json();
+    expect(body.errors.loan_amount).toBe('Loan amount must be greater than zero')
+    expect(res.status()).toBe(400);
+  });
 });

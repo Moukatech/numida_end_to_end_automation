@@ -12,7 +12,6 @@
 
 ## Edge Cases Not Fully Handled
 - Multiple tabs submitting simultaneously
-- Very large loan amounts
 - Network interruption during submission
 
 ## Requirement Gaps
